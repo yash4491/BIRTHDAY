@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: url('background.webp') no-repeat center center fixed;
+            background-size: cover;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .birthday-text {
+            font-size: 6em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), 0 0 15px #ffa500, 0 0 25px #ff4500;
+            animation: bounce 1s infinite alternate, glow 2s infinite alternate, rotateText 5s infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 1;
+        }
+        @keyframes bounce {
+            from { transform: translate(-50%, -50%) scale(1); }
+            to { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        @keyframes glow {
+            from { text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), 0 0 15px #ffa500, 0 0 25px #ff4500; }
+            to { text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4), 0 0 20px #ffa500, 0 0 30px #ff4500; }
+        }
+        @keyframes rotateText {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(8deg); }
+            100% { transform: translate(-50%, -50%) rotate(-8deg); }
+        }
+        .image-gallery {
+            display: none;
+            margin-top: 20px;
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-gallery img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 20px;
+            object-fit: contain;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .text-container {
+            position: absolute;
+            top: 1%; /* Adjusted higher so it remains visible */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff69b4;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-text">🎀  𝐻𝒜𝒫𝒫𝒴 𝐵𝐼𝑅𝒯𝐻𝒟𝒜𝒴❣❣  🎀  </div>
+    <audio id="birthdaySong" src="happy-birthday-266285.mp3" autoplay loop></audio>
+    <div class="image-gallery">
+        <div class="text-container">YOU COMPLETE US....MUMMA.</div>
+        <img src="IMG_20241112_185953981_AE.jpg" alt="Birthday Image 1" data-text="YOU COMPLETE US....MUMMA.">
+        <img src="IMG_20250206_153236329.jpg" alt="Birthday Image 2" data-text="ASPY... TOGETHER.">
+        <img src="IMG_20250310_173243277.jpg" alt="Birthday Image 3" data-text="A SWEET MOMENT.">
+        <img src="IMG_20241229_134517749_HDR_PORTRAIT.jpg" alt="Birthday Image 4" data-text="😊">
+        <img src="IMG_20240314_192200130_PORTRAIT.jpg" alt="Birthday Image 5" data-text="WITH PARRUU😁">
+        <img src="IMG-20211121-WA0036.jpg" alt="Birthday Image 6" data-text="WITH PALLU😘">
+        <img src="alexas_fotos-pnGjbJEmU3o-unsplash.jpg" alt="Created By" data-text="CREATED BY: YASHVARDHAN (PALLU😊)">
+    </div>
+    <script>
+        window.onload = function() {
+            const birthdayText = document.querySelector('.birthday-text');
+            const imageGallery = document.querySelector('.image-gallery');
+            const images = document.querySelectorAll('.image-gallery img');
+            const textContainer = document.querySelector('.text-container');
+            const song = document.getElementById('birthdaySong');
+            
+            setTimeout(() => {
+                birthdayText.style.opacity = '0';
+                setTimeout(() => {
+                    birthdayText.style.display = 'none';
+                    imageGallery.style.display = 'flex';
+                    song.play();
+                    startSlideshow();
+                }, 1000);
+            }, 5000);
+        };
+        
+        function startSlideshow() {
+            let index = 0;
+            const images = document.querySelectorAll('.image-gallery img');
+            const textContainer = document.querySelector('.text-container');
+            
+            function showImage() {
+                images.forEach(img => img.style.opacity = '0');
+                if (index < images.length) {
+                    images[index].style.opacity = '1';
+                    textContainer.textContent = images[index].getAttribute('data-text');
+                    textContainer.style.display = 'block';
+                }
+                if (index === images.length - 1) {
+                    setTimeout(() => {
+                        textContainer.style.display = 'none';
+                    }, 3000);
+                }
+            }
+            
+            showImage();
+            let slideshowInterval = setInterval(() => {
+                index++;
+                if (index < images.length) {
+                    showImage();
+                } else {
+                    clearInterval(slideshowInterval);
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
